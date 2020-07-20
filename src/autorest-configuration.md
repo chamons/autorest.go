@@ -44,7 +44,7 @@ pipeline:
       - go/text-transform # this grabs the outputs after the last step.
       
     is-object: false # tell it that we're not putting an object graph out
-    output-artifact: source-file-go # the file 'type' that we're outputting.
+    output-artifact: source-file-swift # the file 'type' that we're outputting.
 
   #go/emitter/command:
   #  input: emitter

@@ -19,29 +19,28 @@ export async function generateEnums(session: Session<CodeModel>): Promise<string
   let text = await contentPreamble(session);
   for (const enm of values(enums)) {
     if (enm.desc) {
-      text += `${comment(enm.name, '// ')} - ${enm.desc}\n`;
+      text += `${comment(enm.name, '/// ')} - ${enm.desc}\n`;
     }
-    text += `type ${enm.name} ${enm.type}\n\n`;
+    text += `public enum ${enm.name}: ${enm.type} {\n`;
     const vals = new Array<string>();
-    text += 'const (\n';
     for (const val of values(enm.choices)) {
       if (hasDescription(val.language.go!)) {
         text += `\t${comment(val.language.go!.name, '// ')} - ${val.language.go!.description}\n`;
       }
-      text += `\t${val.language.go!.name} ${enm.name} = "${val.value}"\n`;
+      text += `\tcase ${val.language.go!.name} = "${val.value}"\n`;
       vals.push(val.language.go!.name);
     }
-    text += ')\n\n';
-    text += `func ${enm.funcName}() []${enm.name} {\n`;
-    text += `\treturn []${enm.name}{\t\n`;
-    for (const val of values(vals)) {
-      text += `\t\t${val},\n`;
-    }
-    text += '\t}\n';
+    // Add any enum funcs
+    // text += `func ${enm.funcName}() []${enm.name} {\n`;
+    // text += `\treturn []${enm.name}{\t\n`;
+    // for (const val of values(vals)) {
+    //   text += `\t\t${val},\n`;
+    // }
+    // text += '\t}\n';
+    // text += '}\n\n';
+    // text += `func (c ${enm.name}) ToPtr() *${enm.name} {\n`;
+    // text += '\treturn &c\n';
     text += '}\n\n';
-    text += `func (c ${enm.name}) ToPtr() *${enm.name} {\n`;
-    text += '\treturn &c\n';
-    text += `}\n\n`;
   }
   return text;
 }

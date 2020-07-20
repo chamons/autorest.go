@@ -36,42 +36,38 @@ export async function protocolGen(host: Host) {
     host.WriteFile('code-model-v4.yaml', serialize(session.model), undefined, 'code-model-v4');
 
     for (const op of values(operations)) {
-      host.WriteFile(`${filePrefix}${op.name.toLowerCase()}.go`, op.content, undefined, 'source-file-go');
+      host.WriteFile(`${filePrefix}${op.name.toLowerCase()}.swift`, op.content, undefined, 'source-file-swift');
     }
 
     const enums = await generateEnums(session);
     if (enums.length > 0) {
-      host.WriteFile(`${filePrefix}enums.go`, enums, undefined, 'source-file-go');
+      host.WriteFile(`${filePrefix}enums.swift`, enums, undefined, 'source-file-swift');
     }
 
     const models = await generateModels(session);
-    host.WriteFile(`${filePrefix}models.go`, models, undefined, 'source-file-go');
+    host.WriteFile(`${filePrefix}models.swift`, models, undefined, 'source-file-swift');
 
     const client = await generateClient(session);
-    host.WriteFile(`${filePrefix}client.go`, client, undefined, 'source-file-go');
+    host.WriteFile(`${filePrefix}client.swift`, client, undefined, 'source-file-swift');
 
     const timeHelpers = await generateTimeHelpers(session);
     for (const helper of values(timeHelpers)) {
-      host.WriteFile(`${filePrefix}${helper.name.toLowerCase()}.go`, helper.content, undefined, 'source-file-go');
+      host.WriteFile(`${filePrefix}${helper.name.toLowerCase()}.go`, helper.content, undefined, 'source-file-swift');
     }
 
     const pagers = await generatePagers(session);
     if (pagers.length > 0) {
-      host.WriteFile(`${filePrefix}pagers.go`, pagers, undefined, 'source-file-go');
+      host.WriteFile(`${filePrefix}pagers.swift`, pagers, undefined, 'source-file-swift');
     }
     const pollers = await generatePollers(session);
     if (pollers.length > 0) {
       const pollingHelper = await generatePollersHelper(session);
-      host.WriteFile(`${filePrefix}pollers_helper.go`, pollingHelper, undefined, 'source-file-go');
-      host.WriteFile(`${filePrefix}pollers.go`, pollers, undefined, 'source-file-go');
+      host.WriteFile(`${filePrefix}pollersHelper.swift`, pollingHelper, undefined, 'source-file-swift');
+      host.WriteFile(`${filePrefix}pollers.swift`, pollers, undefined, 'source-file-swift');
     }
     const polymorphics = await generatePolymorphicHelpers(session);
     if (polymorphics.length > 0) {
-      host.WriteFile(`${filePrefix}polymorphic_helpers.go`, polymorphics, undefined, 'source-file-go');
-    }
-    const gomod = await generateGoModFile(session);
-    if (gomod.length > 0) {
-      host.WriteFile('go.mod', gomod, undefined, 'source-file-go');
+      host.WriteFile(`${filePrefix}polymorphicHelpers.swift`, polymorphics, undefined, 'source-file-swift');
     }
   } catch (E) {
     if (debug) {
