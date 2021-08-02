@@ -112,6 +112,8 @@ generateFromReadme("azkeyvault", keyvault, 'package-7.2', 'test/keyvault/7.2/azk
 
 generate("azalias", 'test/swagger/alias.json', 'test/maps/azalias', '--security=AzureKey --module="azalias" --openapi-type="data-plane"');
 
+generate("enum", 'test/enum/enum.json', 'test/enum', '--security=AzureKey --module="enum" --openapi-type="data-plane"');
+
 function should_generate(name) {
     if (filter !== undefined) {
         let re = new RegExp(filter);

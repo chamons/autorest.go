@@ -1,0 +1,126 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0",
+    "title": "Azure App Configuration"
+  },
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/ka": {
+      "head": {
+        "summary": "Requests the headers and status of the given resource.",
+        "operationId": "CheckKeyValuesA",
+        "consumes": [],
+        "produces": [],
+        "parameters": [
+          {
+            "name": "$OtherSelect",
+            "in": "query",
+            "description": "abc's",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "a",
+                "b",
+                "c",
+                "d",
+                "e",
+                "f",
+                "g",
+                "h"
+              ]
+            },
+            "collectionFormat": "csv"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Error response describing why the operation failed"
+          }
+        }
+      }
+    },
+    "/kv": {
+      "get": {
+        "summary": "Gets a list of key-values.",
+        "operationId": "GetKeyValues",
+        "consumes": [],
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Foo",
+            "in": "query",
+            "description": ".",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "key",
+                "label",
+                "content_type",
+                "value",
+                "last_modified",
+                "tags",
+                "locked",
+                "etag"
+              ]
+            },
+            "collectionFormat": "csv"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "head": {
+        "summary": "Requests the headers and status of the given resource.",
+        "operationId": "CheckKeyValues",
+        "consumes": [],
+        "produces": [],
+        "parameters": [
+          {
+            "name": "Foo",
+            "in": "query",
+            "description": ".",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "key",
+                "label",
+                "content_type",
+                "value",
+                "last_modified",
+                "tags",
+                "locked",
+                "etag"
+              ]
+            },
+            "collectionFormat": "csv"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          },
+          "default": {
+            "description": "Error response describing why the operation failed"
+          }
+        }
+      }
+    }
+  },
+  "definitions": {},
+  "parameters": {},
+  "x-ms-parameterized-host": {}
+}
